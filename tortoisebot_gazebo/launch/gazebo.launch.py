@@ -10,7 +10,8 @@ positions = [(0, 0), (1, 1), (2, 1)]
 
 def generate_launch_description():
     # world_path= os.path.join(get_package_share_directory('ttb_description'), 'models/worlds/house_env.world'),
-    world_path=os.path.join(get_package_share_directory('tortoisebot_description'), 'worlds/big_env.sdf'),
+    # world_path=os.path.join(get_package_share_directory('tortoisebot_description'), 'worlds/big_env.sdf'),
+    world_path=os.path.join(get_package_share_directory('tortoisebot_gazebo'), 'worlds/room2.sdf'),
     
     if "NUM_ROBOTS" in os.environ:
         num_robots = int(os.environ["NUM_ROBOTS"])
