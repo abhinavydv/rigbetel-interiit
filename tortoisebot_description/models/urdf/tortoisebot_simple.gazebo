@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
-<robot name="tortoisebot_simple" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot name="$(arg namespace)/tortoisebot_simple" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<xacro:property name="robot_name" value="$(arg namespace)"/>
 
 <!-- <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
@@ -9,13 +10,13 @@
     </plugin>
   </gazebo> -->
 
-<gazebo reference="base_link">
+<gazebo reference="${robot_name}/base_link">
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <gravity>true</gravity>
 </gazebo>
 
-<gazebo reference="wheel_left">
+<gazebo reference="${robot_name}/wheel_left">
   <mu1>1.0</mu1>
   <mu2>1.0</mu2>
   <kp>500000.0</kp>
@@ -23,7 +24,7 @@
   <minDepth>0.001</minDepth>
 </gazebo>
 
-<gazebo reference="wheel_right">
+<gazebo reference="${robot_name}/wheel_right">
   <mu1>1.0</mu1>
   <mu2>1.0</mu2>
   <kp>500000.0</kp>
@@ -31,36 +32,36 @@
   <minDepth>0.001</minDepth>
 </gazebo>
 
-<gazebo reference="lidar">
+<gazebo reference="${robot_name}/lidar">
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
 </gazebo>
 
-<gazebo reference="camera_link">
+<gazebo reference="${robot_name}/camera_link">
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
 </gazebo>
 
-<gazebo reference="camera_holder">
+<gazebo reference="${robot_name}/camera_holder">
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
 </gazebo>
 
-<gazebo reference="castor_wheel">
+<gazebo reference="${robot_name}/castor_wheel">
   <mu1>0.1</mu1>
   <mu2>0.1</mu2>
 </gazebo>
 
 <!-- Differential drive plugin for gazebo -->
 	<gazebo>
-	<plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
+	<plugin name='${robot_name}/diff_drive' filename='libgazebo_ros_diff_drive.so'>
 		<ros>
 		<!-- <namespace>/demo</namespace> -->
 		</ros>
 
 		<!-- wheels -->
-		<left_joint>wheel_left_joint</left_joint>
-		<right_joint>wheel_right_joint</right_joint>
+		<left_`>${robot_name}/wheel_left_joint</left_joint>
+		<right_joint>${robot_name}/wheel_right_joint</right_joint>
 
 		<!-- kinematics -->
 		<wheel_separation>0.17186</wheel_separation>
@@ -76,13 +77,13 @@
 		<publish_wheel_tf>false</publish_wheel_tf>
 
 		<odometry_frame>odom</odometry_frame>
-		<robot_base_frame>base_link</robot_base_frame>
+		<robot_base_frame>${robot_name}/base_link</robot_base_frame>
 	</plugin>
 	</gazebo>
 
 	<!--  ##########  LIDAR PLUGIN  ##########  -->
 
-	<gazebo reference="lidar">
+	<gazebo reference="${robot_name}/lidar">
 		<sensor name="ydlidar" type="ray">
 			<always_on>true</always_on>
 			<visualize>false</visualize>
@@ -112,12 +113,12 @@
 				<remapping>~/out:=scan</remapping>
 			</ros>
 			<output_type>sensor_msgs/LaserScan</output_type>
-			<frame_name>lidar</frame_name>
+			<frame_name>${robot_name}/lidar</frame_name>
 			</plugin>
 		</sensor>
 		</gazebo>
 <!-- camera -->
-<gazebo reference="camera_link">
+<gazebo reference="${robot_name}/camera_link">
   <sensor type="camera" name="raspberrypi_camera">
     <update_rate>30.0</update_rate>
     <camera name="raspberrypi_camera">

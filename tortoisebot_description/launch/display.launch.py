@@ -17,8 +17,11 @@ from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable,Include
 
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
-
-
+if "NUM_ROBOTS" not in os.environ:
+    NUM_ROBOTS = 3
+    os.environ["NUM_ROBOTS"] = str(NUM_ROBOTS)
+else:
+    NUM_ROBOTS = int(os.environ["NUM_ROBOTS"])
 
 
 def generate_launch_description():
@@ -27,7 +30,6 @@ def generate_launch_description():
     gazebo_launch_dir = os.path.join(get_package_share_directory('tortoisebot_gazebo'), 'launch')
     state_publisher_dir = os.path.join(get_package_share_directory('tortoisebot_description'), 'launch')
     default_rviz_config_path = os.path.join(get_package_share_directory('tortoisebot_description'), 'rviz/tortoisebot_sensor_display.rviz')
-    
     
     use_sim_time = LaunchConfiguration('use_sim_time')
 
